@@ -20,6 +20,7 @@ class ShopAdmin(admin.ModelAdmin):
             'phone',
             'openhour',
         )
+    search_fields = ('shop_name',)
 
 class LifeInfoAdmin(admin.ModelAdmin):
     list_display = (
