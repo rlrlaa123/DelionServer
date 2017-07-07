@@ -3,10 +3,17 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+from versatileimagefield.fields import VersatileImageField, PPOIField
+
 class Category(models.Model):
     category = models.CharField(primary_key=True,max_length=10,default='test')
     shop_or_lifeinfo = models.CharField(max_length=8,null='test')
-    img = models.CharField(max_length=70, null=True, blank=True)
+    img = VersatileImageField(
+        'Image',
+        upload_to='img/',
+        ppoi_field='img_ppoi'
+    )
+    img_ppoi = PPOIField()
 
 class Shop(models.Model):
     category = models.CharField(max_length=8,default='test')

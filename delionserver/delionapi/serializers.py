@@ -1,12 +1,23 @@
 from delionapi.models import *
 from rest_framework import serializers
 
+from versatileimagefield.serializers import VersatileImageFieldSerializer
+
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
+    img = VersatileImageFieldSerializer(
+        sizes=[
+            ('full_size', 'url'),
+            ('thumbnail', 'thumbnail__100x100'),
+            ('medium_square_crop', 'crop__400x400'),
+            ('small_square_crop', 'crop__50x50')
+        ]
+    )
     class Meta:
         model = Category
         fields = (
             'category',
             'shop_or_lifeinfo',
+            'img',
         )
 
 class ShopSerializer(serializers.HyperlinkedModelSerializer):

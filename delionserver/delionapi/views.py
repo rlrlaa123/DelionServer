@@ -20,8 +20,3 @@ class LifeInfoList(generics.ListCreateAPIView):
 class MenuList(generics.ListCreateAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
-
-
-
-
-
