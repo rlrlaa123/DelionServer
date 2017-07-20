@@ -13,8 +13,8 @@ class CategoryAdmin(admin.ModelAdmin):
 class ShopAdmin(admin.ModelAdmin):
     model = Shop
     list_display = (
-            'category',
             'shop_name',
+            'category',
             'img',
             'branch',
             'phone',
@@ -24,8 +24,8 @@ class ShopAdmin(admin.ModelAdmin):
 
 class LifeInfoAdmin(admin.ModelAdmin):
     list_display = (
-            'category',
             'lifeinfo_name',
+            'category',
             'img',
             'branch',
             'phone',
