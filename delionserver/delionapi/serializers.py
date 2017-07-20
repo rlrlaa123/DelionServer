@@ -64,3 +64,14 @@ class LifeInfoListSerializer(serializers.HyperlinkedModelSerializer):
             'phone',
             'address_url',
         )
+
+class LifeInfoDetailSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = LifeInfo
+        fields = (
+            'lifeinfo_name',
+            'branch',
+            'phone',
+            'address',
+            'openhour',
+        )
