@@ -19,6 +19,7 @@ from delionapi import views
 from rest_framework.urlpatterns import format_suffix_patterns
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import include
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -28,7 +29,12 @@ urlpatterns = [
     url(r'^lifeinfo/$', views.LifeInfoList.as_view()),
     url(r'^lifeinfo/detail/$', views.LifeInfoDetail.as_view()),
     url(r'^search/$', views.SearchList.as_view()),
+
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += [
+    url(r'^api-auth/', include('rest_framework.urls',
+                               namespace='rest_framework')),
+]
