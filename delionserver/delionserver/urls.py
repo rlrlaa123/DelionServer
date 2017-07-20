@@ -25,9 +25,8 @@ urlpatterns = [
     url(r'^category/$', views.CategoryList.as_view()),
     url(r'^shop/$', views.ShopList.as_view()),
     url(r'^lifeinfo/$', views.LifeInfoList.as_view()),
-    url(r'^menu/$', views.MenuList.as_view()),
+    url(r'^shop/menu/$', views.MenuList.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
-
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

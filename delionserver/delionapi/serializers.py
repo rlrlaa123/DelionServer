@@ -50,8 +50,19 @@ class MenuSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Menu
         fields = (
-            'shop_name',
             'menu_name',
             'extender_menu',
             'price',
+        )
+
+class ShopMenuSerializer(serializers.HyperlinkedModelSerializer):
+    menu = MenuSerializer(many=True)
+
+    class Meta:
+        model = Shop
+        fields = (
+            'shop_name',
+            'branch',
+            'phone',
+            'menu',
         )

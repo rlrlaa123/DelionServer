@@ -36,7 +36,7 @@ class LifeInfo(models.Model):
 
 class Menu(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    shop_name = models.ForeignKey(Shop,to_field='shop_name')
+    shop_name = models.ForeignKey(Shop,to_field='shop_name',related_name='menu')
     menu_name = models.CharField(max_length=45,default='test')
     extender_menu = models.CharField(max_length=45,null=True, blank =True)
     price = models.IntegerField(null=True, blank =True)

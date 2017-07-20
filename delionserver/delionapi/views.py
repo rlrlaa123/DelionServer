@@ -18,5 +18,5 @@ class LifeInfoList(generics.ListCreateAPIView):
     serializer_class = LifeInfoSerializer
 
 class MenuList(generics.ListCreateAPIView):
-    queryset = Menu.objects.all()
-    serializer_class = MenuSerializer
+    queryset = Shop.objects.all()
+    serializer_class = ShopMenuSerializer
