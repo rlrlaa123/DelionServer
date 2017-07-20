@@ -19,22 +19,32 @@ class CategoryList(generics.ListCreateAPIView):
     serializer_class = CategorySerializer
 
 class ShopList(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                      IsOwnerOrReadOnly,)
     queryset = Shop.objects.all()
     serializer_class = ShopSerializer
 
 class MenuList(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                      IsOwnerOrReadOnly,)
     queryset = Shop.objects.all()
     serializer_class = ShopMenuSerializer
 
 class LifeInfoList(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                      IsOwnerOrReadOnly,)
     queryset = LifeInfo.objects.all()
     serializer_class = LifeInfoListSerializer
 
 class LifeInfoDetail(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                      IsOwnerOrReadOnly,)
     queryset = LifeInfo.objects.all()
     serializer_class = LifeInfoDetailSerializer
 
 class SearchList(APIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                      IsOwnerOrReadOnly,)
 
     def post(self, request, format=None):
         try:
