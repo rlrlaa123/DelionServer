@@ -13,10 +13,11 @@ class ShopList(generics.ListCreateAPIView):
     queryset = Shop.objects.all()
     serializer_class = ShopSerializer
 
-class LifeInfoList(generics.ListCreateAPIView):
-    queryset = LifeInfo.objects.all()
-    serializer_class = LifeInfoSerializer
-
 class MenuList(generics.ListCreateAPIView):
     queryset = Shop.objects.all()
     serializer_class = ShopMenuSerializer
+
+class LifeInfoList(generics.ListCreateAPIView):
+    print 'hello'
+    queryset = LifeInfo.objects.all()
+    serializer_class = LifeInfoListSerializer

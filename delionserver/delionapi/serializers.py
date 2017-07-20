@@ -32,20 +32,6 @@ class ShopSerializer(serializers.HyperlinkedModelSerializer):
             'openhour',
         )
 
-class LifeInfoSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = LifeInfo
-        fields = (
-            'category',
-            'lifeinfo_name',
-            'img',
-            'branch',
-            'phone',
-            'openhour',
-            'address',
-            'address_url',
-        )
-
 class MenuSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Menu
@@ -65,4 +51,16 @@ class ShopMenuSerializer(serializers.HyperlinkedModelSerializer):
             'branch',
             'phone',
             'menu',
+        )
+
+class LifeInfoListSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = LifeInfo
+        fields = (
+            'category',
+            'lifeinfo_name',
+            'img',
+            'branch',
+            'phone',
+            'address_url',
         )

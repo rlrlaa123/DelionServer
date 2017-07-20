@@ -24,8 +24,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^category/$', views.CategoryList.as_view()),
     url(r'^shop/$', views.ShopList.as_view()),
-    url(r'^lifeinfo/$', views.LifeInfoList.as_view()),
     url(r'^shop/menu/$', views.MenuList.as_view()),
+    url(r'^lifeinfo/$', views.LifeInfoList.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
