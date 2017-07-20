@@ -75,3 +75,24 @@ class LifeInfoDetailSerializer(serializers.HyperlinkedModelSerializer):
             'address',
             'openhour',
         )
+
+class ShopSearchSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Shop
+        fields = (
+            'shop_name',
+            'branch',
+            'phone',
+            'img',
+        )
+
+class LifeInfoSearchSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = LifeInfo
+        fields = (
+            'lifeinfo_name',
+            'branch',
+            'phone',
+            'address',
+            'img',
+        )

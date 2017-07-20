@@ -4,6 +4,11 @@ from delionapi.serializers import *
 from delionapi.models import *
 from rest_framework import generics
 
+from django.http import Http404
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+
 # Create your views here.
 class CategoryList(generics.ListCreateAPIView):
     queryset = Category.objects.all()
@@ -24,3 +29,18 @@ class LifeInfoList(generics.ListCreateAPIView):
 class LifeInfoDetail(generics.ListCreateAPIView):
     queryset = LifeInfo.objects.all()
     serializer_class = LifeInfoDetailSerializer
+
+class SearchList(APIView):
+
+    def post(self, request, format=None):
+        try:
+            shop_object = Shop.objects.get(shop_name=request.data['name'])
+            serializer = ShopSearchSerializer(shop_object)
+            return Response(serializer.data)
+        except:
+            try:
+                lifeinfo_object = LifeInfo.objects.get(lifeinfo_name=request.data['name'])
+                serializer = LifeInfoSearchSerializer(lifeinfo_object)
+                return Response(serializer.data)
+            except:
+                return Http404

@@ -26,7 +26,8 @@ urlpatterns = [
     url(r'^shop/$', views.ShopList.as_view()),
     url(r'^shop/menu/$', views.MenuList.as_view()),
     url(r'^lifeinfo/$', views.LifeInfoList.as_view()),
-    url(r'^lifeinfo/detail$', views.LifeInfoDetail.as_view()),
+    url(r'^lifeinfo/detail/$', views.LifeInfoDetail.as_view()),
+    url(r'^search/$', views.SearchList.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
