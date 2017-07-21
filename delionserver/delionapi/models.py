@@ -36,3 +36,7 @@ class Menu(models.Model):
 
     class Meta:
         ordering = ('created',)
+
+class Csv(models.Model):
+    csv = models.FileField(upload_to='%Y/%m/%d/datafile')
+#년/월/일 형식으로 정적 파일이 저장 된다

@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from delionapi import views
+from delionserver import settings
+from django.conf.urls.static import static
 from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
@@ -27,3 +29,5 @@ urlpatterns = [
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
+urlpatterns += static('/upload_files/',document_root=settings.MEDIA_ROOT)
+#media file을 제공하는 url패턴

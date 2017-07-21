@@ -46,7 +46,14 @@ class MenuAdmin(admin.ModelAdmin):
 
     raw_id_fields = ("shop_name",)
 
+class CsvAdmin(admin.ModelAdmin):
+    list_display = (
+            'csv',
+        )
+
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Shop, ShopAdmin)
 admin.site.register(LifeInfo, LifeInfoAdmin)
 admin.site.register(Menu, MenuAdmin)
+admin.site.register(Csv, CsvAdmin)
