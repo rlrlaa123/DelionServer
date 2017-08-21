@@ -8,6 +8,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = (
             'category',
             'shop_or_lifeinfo',
+            'img',
         )
 
 class ShopAdmin(admin.ModelAdmin):
@@ -41,6 +42,8 @@ class MenuAdmin(admin.ModelAdmin):
             'extender_menu',
             'price',
         )
+    search_fields = ('menu_name',)
+
     def shop_name_view(self, obj):
         return obj.shop_name.shop_name
 
