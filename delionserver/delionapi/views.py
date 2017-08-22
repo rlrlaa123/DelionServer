@@ -12,6 +12,7 @@ from rest_framework import status
 from rest_framework import permissions
 from delionapi.permissions import IsOwnerOrReadOnly
 
+
 class CategoryList(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                       IsOwnerOrReadOnly,)
@@ -30,17 +31,17 @@ class MenuList(generics.ListCreateAPIView):
     queryset = Shop.objects.all()
     serializer_class = ShopMenuSerializer
 
-class LifeInfoList(generics.ListCreateAPIView):
+class LifeinfoList(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                       IsOwnerOrReadOnly,)
-    queryset = LifeInfo.objects.all()
-    serializer_class = LifeInfoListSerializer
+    queryset = Lifeinfo.objects.all()
+    serializer_class = LifeinfoListSerializer
 
-class LifeInfoDetail(generics.ListCreateAPIView):
+class LifeinfoDetail(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                       IsOwnerOrReadOnly,)
-    queryset = LifeInfo.objects.all()
-    serializer_class = LifeInfoDetailSerializer
+    queryset = Lifeinfo.objects.all()
+    serializer_class = LifeinfoDetailSerializer
 
 class SearchList(APIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
@@ -53,8 +54,8 @@ class SearchList(APIView):
             return Response(serializer.data)
         except:
             try:
-                lifeinfo_object = LifeInfo.objects.get(lifeinfo_name=request.data['name'])
-                serializer = LifeInfoSearchSerializer(lifeinfo_object)
+                lifeinfo_object = Lifeinfo.objects.get(lifeinfo_name=request.data['name'])
+                serializer = LifeinfoSearchSerializer(lifeinfo_object)
                 return Response(serializer.data)
             except:
                 return Http404

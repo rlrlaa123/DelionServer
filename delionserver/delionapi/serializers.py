@@ -3,6 +3,7 @@ from rest_framework import serializers
 
 from versatileimagefield.serializers import VersatileImageFieldSerializer
 
+
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
     img = VersatileImageFieldSerializer(
         sizes=[
@@ -21,8 +22,11 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
         )
 
 class ShopSerializer(serializers.HyperlinkedModelSerializer):
+    category = serializers.PrimaryKeyRelatedField (many=Ture)
+
     class Meta:
         model = Shop
+
         fields = (
             'category',
             'shop_name',
@@ -31,6 +35,8 @@ class ShopSerializer(serializers.HyperlinkedModelSerializer):
             'phone',
             'openhour',
         )
+
+
 
 class MenuSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -53,9 +59,9 @@ class ShopMenuSerializer(serializers.HyperlinkedModelSerializer):
             'menu',
         )
 
-class LifeInfoListSerializer(serializers.HyperlinkedModelSerializer):
+class LifeinfoListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = LifeInfo
+        model = Lifeinfo
         fields = (
             'category',
             'lifeinfo_name',
@@ -65,9 +71,9 @@ class LifeInfoListSerializer(serializers.HyperlinkedModelSerializer):
             'address_url',
         )
 
-class LifeInfoDetailSerializer(serializers.HyperlinkedModelSerializer):
+class LifeinfoDetailSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = LifeInfo
+        model = Lifeinfo
         fields = (
             'lifeinfo_name',
             'branch',
@@ -86,9 +92,9 @@ class ShopSearchSerializer(serializers.HyperlinkedModelSerializer):
             'img',
         )
 
-class LifeInfoSearchSerializer(serializers.HyperlinkedModelSerializer):
+class LifeinfoSearchSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = LifeInfo
+        model = Lifeinfo
         fields = (
             'lifeinfo_name',
             'branch',
