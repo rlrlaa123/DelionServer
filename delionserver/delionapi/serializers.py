@@ -1,4 +1,4 @@
-from delionapi.models import *
+from models import *
 from rest_framework import serializers
 
 from versatileimagefield.serializers import VersatileImageFieldSerializer
@@ -16,54 +16,72 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Category
         fields = (
+            'category_id',
             'category',
             'shop_or_lifeinfo',
             'img',
         )
 
 class ShopSerializer(serializers.HyperlinkedModelSerializer):
-    category = serializers.PrimaryKeyRelatedField (many=Ture)
+    img = VersatileImageFieldSerializer(
+        sizes=[
+            ('full_size', 'url'),
+            ('thumbnail', 'thumbnail__100x100'),
+            ('medium_square_crop', 'crop__400x400'),
+            ('small_square_crop', 'crop__50x50')
+        ]
+    )
+    categoryid = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field= 'category'
+     )
 
     class Meta:
         model = Shop
-
         fields = (
-            'category',
+            'shop_id',
+            'categoryid',
             'shop_name',
             'img',
-            'branch',
             'phone',
             'openhour',
+            'branch',
         )
 
-
-
 class MenuSerializer(serializers.HyperlinkedModelSerializer):
+    shop = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='shop_name'
+    )
+
     class Meta:
         model = Menu
         fields = (
+            'menu_id',
+            'shop',
             'menu_name',
             'extender_menu',
             'price',
         )
 
-class ShopMenuSerializer(serializers.HyperlinkedModelSerializer):
-    menu = MenuSerializer(many=True)
+class LifeinfoSerializer(serializers.HyperlinkedModelSerializer):
+    img = VersatileImageFieldSerializer(
+        sizes=[
+            ('full_size', 'url'),
+            ('thumbnail', 'thumbnail__100x100'),
+            ('medium_square_crop', 'crop__400x400'),
+            ('small_square_crop', 'crop__50x50')
+        ]
+    )
+    categoryid = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='category'
+    )
 
-    class Meta:
-        model = Shop
-        fields = (
-            'shop_name',
-            'branch',
-            'phone',
-            'menu',
-        )
-
-class LifeinfoListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Lifeinfo
         fields = (
-            'category',
+            'categoryid',
             'lifeinfo_name',
             'img',
             'branch',
@@ -80,6 +98,34 @@ class LifeinfoDetailSerializer(serializers.HyperlinkedModelSerializer):
             'phone',
             'address',
             'openhour',
+        )
+
+class LifeinfoDetailListSerializer(serializers.HyperlinkedModelSerializer):
+    img = VersatileImageFieldSerializer(
+        sizes=[
+            ('full_size', 'url'),
+            ('thumbnail', 'thumbnail__100x100'),
+            ('medium_square_crop', 'crop__400x400'),
+            ('small_square_crop', 'crop__50x50')
+        ]
+    )
+    categoryid = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='category'
+    )
+    class Meta:
+        model = Lifeinfo
+        fields = (
+            'categoryid',
+            'lifeinfoid',
+            'lifeinfo_name',
+            'branch',
+            'phone',
+            'openhour',
+            'address',
+            'address_url',
+            'img',
+            'category',
         )
 
 class ShopSearchSerializer(serializers.HyperlinkedModelSerializer):

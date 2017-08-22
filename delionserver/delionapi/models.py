@@ -77,6 +77,7 @@ class AuthUserUserPermissions(models.Model):
 
 
 class Category(models.Model):
+    category_id = models.AutoField(primary_key=True)
     category = models.CharField(unique=True, max_length=45)
     shop_or_lifeinfo = models.CharField(max_length=45, blank=True, null=True)
     img = VersatileImageField(
@@ -85,10 +86,61 @@ class Category(models.Model):
         ppoi_field='img_ppoi'
     )
     img_ppoi = PPOIField()
-
     class Meta:
         managed = False
         db_table = 'category'
+
+
+class DelionapiCategory(models.Model):
+    category = models.CharField(primary_key=True, max_length=10)
+    shop_or_lifeinfo = models.CharField(max_length=8, blank=True, null=True)
+    img = models.CharField(max_length=100)
+    img_ppoi = models.CharField(max_length=20)
+
+    class Meta:
+        managed = False
+        db_table = 'delionapi_category'
+
+
+class DelionapiLifeinfo(models.Model):
+    category = models.CharField(max_length=8)
+    lifeinfo_name = models.CharField(max_length=45)
+    img = models.CharField(max_length=70, blank=True, null=True)
+    branch = models.CharField(max_length=45, blank=True, null=True)
+    phone = models.CharField(max_length=45, blank=True, null=True)
+    openhour = models.CharField(max_length=45, blank=True, null=True)
+    address = models.CharField(max_length=45)
+    address_url = models.CharField(max_length=100)
+
+    class Meta:
+        managed = False
+        db_table = 'delionapi_lifeinfo'
+
+
+class DelionapiMenu(models.Model):
+    created = models.DateTimeField()
+    menu_name = models.CharField(max_length=45)
+    extender_menu = models.CharField(max_length=45, blank=True, null=True)
+    price = models.IntegerField(blank=True, null=True)
+    shop_name = models.ForeignKey('DelionapiShop', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'delionapi_menu'
+
+
+class DelionapiShop(models.Model):
+    category = models.CharField(max_length=8)
+    shop_name = models.CharField(unique=True, max_length=45)
+    img = models.CharField(max_length=70, blank=True, null=True)
+    branch = models.CharField(max_length=45, blank=True, null=True)
+    phone = models.CharField(max_length=45, blank=True, null=True)
+    openhour = models.CharField(max_length=45, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'delionapi_shop'
+
 
 class DjangoAdminLog(models.Model):
     action_time = models.DateTimeField()
@@ -135,7 +187,7 @@ class DjangoSession(models.Model):
 
 
 class Lifeinfo(models.Model):
-    categoryid = models.IntegerField()
+    categoryid = models.ForeignKey(Category, models.DO_NOTHING, db_column='categoryid')
     lifeinfoid = models.AutoField(primary_key=True)
     lifeinfo_name = models.CharField(max_length=45)
     branch = models.CharField(max_length=45, blank=True, null=True)
@@ -143,15 +195,13 @@ class Lifeinfo(models.Model):
     openhour = models.CharField(max_length=45, blank=True, null=True)
     address = models.CharField(max_length=200)
     address_url = models.CharField(max_length=200)
+    category = models.CharField(max_length=45)
     img = VersatileImageField(
         'Image',
         upload_to='img/',
         ppoi_field='img_ppoi'
     )
     img_ppoi = PPOIField()
-
-    category = models.CharField(max_length=45)
-
     class Meta:
         managed = False
         db_table = 'lifeinfo'
@@ -159,7 +209,7 @@ class Lifeinfo(models.Model):
 
 class Menu(models.Model):
     menu_id = models.AutoField(primary_key=True)
-    shop_id = models.IntegerField()
+    shop = models.ForeignKey('Shop', models.DO_NOTHING)
     menu_name = models.CharField(max_length=45)
     extender_menu = models.CharField(max_length=45)
     price = models.IntegerField(blank=True, null=True)
@@ -171,18 +221,17 @@ class Menu(models.Model):
 
 class Shop(models.Model):
     shop_id = models.AutoField(primary_key=True)
-    categoryid = models.IntegerField()
+    categoryid = models.ForeignKey(Category, models.DO_NOTHING, db_column='categoryid')
     shop_name = models.CharField(max_length=45)
+    phone = models.CharField(max_length=45)
+    openhour = models.CharField(max_length=45, blank=True, null=True)
+    branch = models.CharField(max_length=45, blank=True, null=True)
     img = VersatileImageField(
         'Image',
         upload_to='img/',
         ppoi_field='img_ppoi'
     )
     img_ppoi = PPOIField()
-    phone = models.CharField(max_length=45)
-    openhour = models.CharField(max_length=45, blank=True, null=True)
-    branch = models.CharField(max_length=45, blank=True, null=True)
-
     class Meta:
         managed = False
         db_table = 'shop'

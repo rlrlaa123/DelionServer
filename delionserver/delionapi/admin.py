@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from delionapi.models import *
+from models import *
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = (
@@ -14,6 +14,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class ShopAdmin(admin.ModelAdmin):
     model = Shop
     list_display = (
+            'shop_id',
             'shop_name',
             'category',
             'img',
@@ -24,7 +25,7 @@ class ShopAdmin(admin.ModelAdmin):
 
     def category(self, obj):
         categoryid =  obj.categoryid
-        row =  Category.objects.get(id = categoryidid)
+        row =  Category.objects.get(id = categoryid)
         return row.category
 
     search_fields = ('shop_name',)
