@@ -21,9 +21,15 @@ class ShopAdmin(admin.ModelAdmin):
             'phone',
             'openhour',
         )
+
+    def category(self, obj):
+        categoryid =  obj.categoryid
+        row =  Category.objects.get(id = categoryidid)
+        return row.category
+
     search_fields = ('shop_name',)
 
-class LifeInfoAdmin(admin.ModelAdmin):
+class LifeinfoAdmin(admin.ModelAdmin):
     list_display = (
             'lifeinfo_name',
             'category',
@@ -35,21 +41,28 @@ class LifeInfoAdmin(admin.ModelAdmin):
             'address_url',
         )
 
+    def category(self, obj):
+        categoryid = obj.categoryid
+        row = Category.objects.get(id=categoryid)
+        return row.category
+
 class MenuAdmin(admin.ModelAdmin):
     list_display = (
-            'shop_name_view',
+            'shop_name',
             'menu_name',
             'extender_menu',
             'price',
         )
     search_fields = ('menu_name',)
 
-    def shop_name_view(self, obj):
-        return obj.shop_name.shop_name
+    def shop_name(self, obj):
+        id = obj.shop_id
+        row =  Shop.objects.get(shop_id = id)
+        return row.shop_name
 
-    raw_id_fields = ("shop_name",)
+
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Shop, ShopAdmin)
-admin.site.register(LifeInfo, LifeInfoAdmin)
+admin.site.register(Lifeinfo, LifeinfoAdmin)
 admin.site.register(Menu, MenuAdmin)
