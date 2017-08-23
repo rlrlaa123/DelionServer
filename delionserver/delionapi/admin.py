@@ -16,24 +16,23 @@ class ShopAdmin(admin.ModelAdmin):
     list_display = (
             'shop_id',
             'shop_name',
-            'category',
+            'category_name_view',
             'img',
             'branch',
             'phone',
             'openhour',
         )
-
-    def category(self, obj):
-        categoryid =  obj.categoryid
-        row =  Category.objects.get(id = categoryid)
-        return row.category
-
     search_fields = ('shop_name',)
+
+    def category_name_view(self, obj):
+        return obj.categoryid.category
+
+    raw_id_fields = ("categoryid",)
 
 class LifeinfoAdmin(admin.ModelAdmin):
     list_display = (
             'lifeinfo_name',
-            'category',
+            'category_name_view',
             'img',
             'branch',
             'phone',
@@ -41,26 +40,26 @@ class LifeinfoAdmin(admin.ModelAdmin):
             'address',
             'address_url',
         )
+    search_fields = ('lifeinfo_name',)
 
-    def category(self, obj):
-        categoryid = obj.categoryid
-        row = Category.objects.get(id=categoryid)
-        return row.category
+    def category_name_view(self, obj):
+        return obj.categoryid.category
+
+    raw_id_fields = ("categoryid",)
 
 class MenuAdmin(admin.ModelAdmin):
     list_display = (
-            'shop_name',
+            'shop_name_view',
             'menu_name',
             'extender_menu',
             'price',
         )
     search_fields = ('menu_name',)
 
-    def shop_name(self, obj):
-        id = obj.shop_id
-        row =  Shop.objects.get(shop_id = id)
-        return row.shop_name
+    def shop_name_view(self, obj):
+        return obj.shop.shop_name
 
+    raw_id_fields = ("shop",)
 
 
 admin.site.register(Category, CategoryAdmin)
