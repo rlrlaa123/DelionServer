@@ -20,14 +20,18 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import include
-
 urlpatterns = [
+
     url(r'^admin/', admin.site.urls),
     url(r'^category/$', views.CategoryList.as_view()),
+    url(r'^category/(?P<pk>[0-9]+)/$', views.CategoryDetail.as_view()),
     url(r'^shop/$', views.ShopList.as_view()),
+    url(r'^shop/(?P<pk>[0-9]+)/$', views.ShopDetail.as_view()),
     url(r'^shop/menu/$', views.MenuList.as_view()),
-    url(r'^lifeinfo/$', views.LifeInfoList.as_view()),
-    url(r'^lifeinfo/detail/$', views.LifeInfoDetail.as_view()),
+    url(r'^shop/menu/(?P<pk>[0-9]+)/$', views.MenuDetail.as_view()),
+    url(r'^lifeinfo/$', views.LifeinfoList.as_view()),
+    url(r'^lifeinfo/detail/$', views.LifeinfoDetailList.as_view()),
+    url(r'^lifeinfo/(?P<pk>[0-9]+)/$', views.LifeinfoDetail.as_view()),
     url(r'^search/$', views.SearchList.as_view()),
 
 ]

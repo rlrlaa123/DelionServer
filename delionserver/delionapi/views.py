@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from delionapi.serializers import *
-from delionapi.models import *
+from serializers import *
+from models import *
 from rest_framework import generics
 
 from django.http import Http404
@@ -10,11 +10,17 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from rest_framework import permissions
-from delionapi.permissions import IsOwnerOrReadOnly
+from permissions import IsOwnerOrReadOnly
+
+from django_filters.rest_framework import DjangoFilterBackend
 
 class CategoryList(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                       IsOwnerOrReadOnly,)
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
@@ -24,25 +30,37 @@ class ShopList(generics.ListCreateAPIView):
     queryset = Shop.objects.all()
     serializer_class = ShopSerializer
 
+class ShopDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Shop.objects.all()
+    serializer_class = ShopSerializer
+
 class MenuList(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                       IsOwnerOrReadOnly,)
-    queryset = Shop.objects.all()
-    serializer_class = ShopMenuSerializer
+    queryset = Menu.objects.all()
+    serializer_class = MenuSerializer
 
-class LifeInfoList(generics.ListCreateAPIView):
+class MenuDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Menu.objects.all()
+    serializer_class = MenuSerializer
+
+class LifeinfoList(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                       IsOwnerOrReadOnly,)
-    queryset = LifeInfo.objects.all()
-    serializer_class = LifeInfoListSerializer
+    queryset = Lifeinfo.objects.all()
+    serializer_class = LifeinfoSerializer
 
-class LifeInfoDetail(generics.ListCreateAPIView):
+class LifeinfoDetailList(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                       IsOwnerOrReadOnly,)
-    queryset = LifeInfo.objects.all()
-    serializer_class = LifeInfoDetailSerializer
+    queryset = Lifeinfo.objects.all()
+    serializer_class = LifeinfoDetailSerializer
 
-class SearchList(APIView):
+class LifeinfoDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Lifeinfo.objects.all()
+    serializer_class = LifeinfoDetailListSerializer
+
+class SearchList(generics.ListAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                       IsOwnerOrReadOnly,)
 
@@ -50,11 +68,14 @@ class SearchList(APIView):
         try:
             shop_object = Shop.objects.get(shop_name=request.data['name'])
             serializer = ShopSearchSerializer(shop_object)
+            filter_backends = (filters.SearchFilter,)
+            search_fields = ('shop_name^',)
+
             return Response(serializer.data)
         except:
             try:
-                lifeinfo_object = LifeInfo.objects.get(lifeinfo_name=request.data['name'])
-                serializer = LifeInfoSearchSerializer(lifeinfo_object)
+                lifeinfo_object = Lifeinfo.objects.get(lifeinfo_name=request.data['name'])
+                serializer = LifeinfoSearchSerializer(lifeinfo_object)
                 return Response(serializer.data)
             except:
                 return Http404
