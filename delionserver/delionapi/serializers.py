@@ -128,7 +128,9 @@ class LifeinfoDetailListSerializer(serializers.HyperlinkedModelSerializer):
             'category',
         )
 
-class ShopSearchSerializer(serializers.HyperlinkedModelSerializer):
+class SearchSerializer(serializers.HyperlinkedModelSerializer):
+
+    lifeinfo = LifeinfoSerializer(read_only=True)
     class Meta:
         model = Shop
         fields = (
@@ -136,6 +138,7 @@ class ShopSearchSerializer(serializers.HyperlinkedModelSerializer):
             'branch',
             'phone',
             'img',
+            'lifeinfo',
         )
 
 class LifeinfoSearchSerializer(serializers.HyperlinkedModelSerializer):

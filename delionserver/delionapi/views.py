@@ -12,7 +12,7 @@ from rest_framework import status
 from rest_framework import permissions
 from permissions import IsOwnerOrReadOnly
 
-from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 
 class CategoryList(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
@@ -62,20 +62,8 @@ class LifeinfoDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class SearchList(generics.ListAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
-                      IsOwnerOrReadOnly,)
-
-    def post(self, request, format=None):
-        try:
-            shop_object = Shop.objects.get(shop_name=request.data['name'])
-            serializer = ShopSearchSerializer(shop_object)
-            filter_backends = (filters.SearchFilter,)
-            search_fields = ('shop_name^',)
-
-            return Response(serializer.data)
-        except:
-            try:
-                lifeinfo_object = Lifeinfo.objects.get(lifeinfo_name=request.data['name'])
-                serializer = LifeinfoSearchSerializer(lifeinfo_object)
-                return Response(serializer.data)
-            except:
-                return Http404
+                          IsOwnerOrReadOnly,)
+    queryset = Shop.objects.all()
+    serializer_class = ShopSerializer
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ['shop_name']
