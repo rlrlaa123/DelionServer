@@ -29,10 +29,7 @@ urlpatterns = [
     url(r'^shop/(?P<pk>[0-9]+)/$', views.ShopDetail.as_view()),
     url(r'^shop/menu/$', views.MenuList.as_view()),
     url(r'^shop/menu/(?P<pk>[0-9]+)/$', views.MenuDetail.as_view()),
-    url(r'^lifeinfo/$', views.LifeinfoList.as_view()),
-    url(r'^lifeinfo/detail/$', views.LifeinfoDetailList.as_view()),
-    url(r'^lifeinfo/(?P<pk>[0-9]+)/$', views.LifeinfoDetail.as_view()),
-    url(r'^search/$', views.SearchList.as_view(), name="search"),
+    url(r'^search/$', views.SearchList.as_view(),name="search"),
 
 ]
 

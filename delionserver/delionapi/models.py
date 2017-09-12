@@ -86,6 +86,7 @@ class Category(models.Model):
         ppoi_field='img_ppoi'
     )
     img_ppoi = PPOIField()
+
     class Meta:
         managed = False
         db_table = 'category'
@@ -186,30 +187,9 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
-class Lifeinfo(models.Model):
-    categoryid = models.ForeignKey(Category, models.DO_NOTHING, db_column='categoryid')
-    lifeinfoid = models.AutoField(primary_key=True)
-    lifeinfo_name = models.CharField(max_length=45)
-    branch = models.CharField(max_length=45, blank=True, null=True)
-    phone = models.CharField(max_length=45, blank=True, null=True)
-    openhour = models.CharField(max_length=45, blank=True, null=True)
-    address = models.CharField(max_length=200)
-    address_url = models.CharField(max_length=200)
-    category = models.CharField(max_length=45)
-    img = VersatileImageField(
-        'Image',
-        upload_to='img/',
-        ppoi_field='img_ppoi'
-    )
-    img_ppoi = PPOIField()
-    class Meta:
-        managed = False
-        db_table = 'lifeinfo'
-
-
 class Menu(models.Model):
     menu_id = models.AutoField(primary_key=True)
-    shop = models.ForeignKey('Shop', models.DO_NOTHING)
+    shop = models.ForeignKey('ShopLifeinfo', models.DO_NOTHING)
     menu_name = models.CharField(max_length=45)
     extender_menu = models.CharField(max_length=45)
     price = models.IntegerField(blank=True, null=True)
@@ -219,19 +199,22 @@ class Menu(models.Model):
         db_table = 'menu'
 
 
-class Shop(models.Model):
-    shop_id = models.AutoField(primary_key=True)
-    categoryid = models.ForeignKey(Category, models.DO_NOTHING, db_column='categoryid')
-    shop_name = models.CharField(max_length=45)
-    phone = models.CharField(max_length=45)
-    openhour = models.CharField(max_length=45, blank=True, null=True)
-    branch = models.CharField(max_length=45, blank=True, null=True)
+class ShopLifeinfo(models.Model):
+    shop_lifeinfo_id = models.AutoField(primary_key=True)
+    category = models.ForeignKey(Category, models.DO_NOTHING)
+    name = models.CharField(max_length=45)
     img = VersatileImageField(
         'Image',
         upload_to='img/',
         ppoi_field='img_ppoi'
     )
     img_ppoi = PPOIField()
+    branch = models.CharField(max_length=45, blank=True, null=True)
+    phone = models.CharField(max_length=45)
+    openhour = models.CharField(max_length=45, blank=True, null=True)
+    address = models.CharField(max_length=225, blank=True, null=True)
+    address_url = models.CharField(max_length=225, blank=True, null=True)
+
     class Meta:
         managed = False
-        db_table = 'shop'
+        db_table = 'shop_lifeinfo'

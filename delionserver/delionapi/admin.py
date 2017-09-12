@@ -6,32 +6,17 @@ from models import *
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = (
+            'category_id',
             'category',
             'shop_or_lifeinfo',
             'img',
         )
 
-class ShopAdmin(admin.ModelAdmin):
-    model = Shop
+class ShopLifeinfoAdmin(admin.ModelAdmin):
+    model = ShopLifeinfo
     list_display = (
-            'shop_id',
-            'shop_name',
-            'category_name_view',
-            'img',
-            'branch',
-            'phone',
-            'openhour',
-        )
-    search_fields = ('shop_name',)
-
-    def category_name_view(self, obj):
-        return obj.categoryid.category
-
-    raw_id_fields = ("categoryid",)
-
-class LifeinfoAdmin(admin.ModelAdmin):
-    list_display = (
-            'lifeinfo_name',
+            'shop_lifeinfo_id',
+            'name',
             'category_name_view',
             'img',
             'branch',
@@ -40,15 +25,16 @@ class LifeinfoAdmin(admin.ModelAdmin):
             'address',
             'address_url',
         )
-    search_fields = ('lifeinfo_name',)
+    search_fields = ('name',)
 
     def category_name_view(self, obj):
-        return obj.categoryid.category
+        return obj.category.category
 
-    raw_id_fields = ("categoryid",)
+    raw_id_fields = ("category",)
 
 class MenuAdmin(admin.ModelAdmin):
     list_display = (
+            'menu_id',
             'shop_name_view',
             'menu_name',
             'extender_menu',
@@ -57,12 +43,11 @@ class MenuAdmin(admin.ModelAdmin):
     search_fields = ('menu_name',)
 
     def shop_name_view(self, obj):
-        return obj.shop.shop_name
+        return obj.shop.name
 
     raw_id_fields = ("shop",)
 
 
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(Shop, ShopAdmin)
-admin.site.register(Lifeinfo, LifeinfoAdmin)
+admin.site.register(ShopLifeinfo, ShopLifeinfoAdmin)
 admin.site.register(Menu, MenuAdmin)

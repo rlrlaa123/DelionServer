@@ -93,7 +93,7 @@ WSGI_APPLICATION = 'delionserver.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'deliondb',
+        'NAME': 'deliondb0912',
         'HOST': 'localhost',
         'PORT': '3306',
         'USER': 'root',
