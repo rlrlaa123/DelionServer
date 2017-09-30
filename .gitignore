@@ -4,5 +4,4 @@ db.sqlite3
 drawable/
 .idea/
 *.xlsx
-*.sql
 *.pyc
