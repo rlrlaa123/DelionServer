@@ -1,41 +1,45 @@
-# Django, uWSGI and Nginx in a container, using Supervisord
+# DelionServer
 
-This Dockerfile shows you *how* to build a Docker container with a fairly standard
-and speedy setup for Django with uWSGI and Nginx.
+## MYSQL DB
+### MYSQL DB export file
+* deliondb0911.sql
+### Django MYSQL configuration
+```
+# app/delionserver/settings.py
 
-uWSGI from a number of benchmarks has shown to be the fastest server 
-for python applications and allows lots of flexibility. But note that we have
-not done any form of optimalization on this package. Modify it to your needs.
-
-Nginx has become the standard for serving up web applications and has the 
-additional benefit that it can talk to uWSGI using the uWSGI protocol, further
-eliminating overhead. 
-
-Most of this setup comes from the excellent tutorial on 
-https://uwsgi.readthedocs.org/en/latest/tutorials/Django_and_nginx.html
-
-The best way to use this repository is as an example. Clone the repository to 
-a location of your liking, and start adding your files / change the configuration 
-as needed. Once you're really into making your project you'll notice you've 
-touched most files here.
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysq',
+        'NAME': ‘<db_name>',
+        'HOST': ‘<server_address>',
+        'PORT': ‘<port_number>',
+        'USER': ‘<user_name>',
+        'PASSWORD': ‘<pw>'
+    }
+}
+```
+## Django, uWSGI and Nginx in a container, using Supervisord
 ### Build and run
-#### Build with python3
-* `docker build -t webapp .`
-* `docker run -d -p 80:80 webapp`
-* go to 127.0.0.1 to see if works
-
 #### Build with python2
-* `docker build -f Dockerfile-py2 -t webapp .`
-* `docker run -d -p 80:80 webapp`
-* go to 127.0.0.1 to see if works
+* `docker build -f Dockerfile-py2 -t delionserver .`
+* `docker run -d -p 80:80 delionserver` or (if mysql is installed via docker) 'docker run -d -p 80:80 --link <mysql_container> delionserver' 
 
-### How to insert your application
-
-In /app currently a django project is created with startproject. You will
-probably want to replace the content of /app with the root of your django
-project. Then also remove the line of django-app startproject from the 
-Dockerfile
-
-uWSGI chdirs to /app so in uwsgi.ini you will need to make sure the python path
-to the wsgi.py file is relative to that.
+## Django
+### /admin
+* id:'delion'
+* pw:'forif0228'
+### /category
+* category_id
+* category
+* shop_or_lifeinfo
+* img
+### /shop
+* shop_lifeinfo_id
+* category
+* name
+* img
+* phone
+* openhour
+* branch
+* address
+* address_url
