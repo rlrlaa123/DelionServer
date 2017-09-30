@@ -22,7 +22,8 @@ DATABASES = {
 ### Build and run
 #### Build with python2
 * `docker build -f Dockerfile-py2 -t delionserver .`
-* `docker run -d -p 80:80 delionserver` or (if mysql is installed via docker) 'docker run -d -p 80:80 --link <mysql_container> delionserver' 
+* `docker run -d -p 80:80 delionserver`
+* (if mysql is running via docker) `docker run -d -p 80:80 --link <mysql_container> delionserver`
 
 ## Django
 ### /admin
@@ -43,3 +44,14 @@ DATABASES = {
 * branch
 * address
 * address_url
+### /menu
+* menu_id
+* shop
+* menu_name
+* extender_menu
+* price
+### /search?search=<shop_name>
+* shop_lifeinfo_id
+* name
+* branch
+* phone
