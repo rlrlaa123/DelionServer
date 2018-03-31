@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from serializers import *
-from models import *
+from .serializers import *
+from .models import *
 from rest_framework import generics
 
 from django.http import Http404
@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from rest_framework import permissions
-from permissions import IsOwnerOrReadOnly
+from .permissions import IsOwnerOrReadOnly
 
 from rest_framework import filters
 from django_filters import rest_framework as django_filters
